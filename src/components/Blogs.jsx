@@ -12,17 +12,22 @@ const Blogs = () => {
     const [blogs, setBlogs] = useState();
 
     const [loading, setLoading] = useState(true);
+    const [showError, setShowError] = useState(false);
 
     useEffect(() => {
+        setShowError(false)
         axios
             .get(blog_url)
             .then((response) => {
                 dispatch(setBlogData(response.data));
                 setBlogs(response.data);
                 setLoading(false);
+                setShowError(false)
             })
             .catch((error) => {
-                console.log(error);
+                setLoading(false);
+                console.log(error.message);
+                setShowError("error: " + error.message)
             });
     }, [searchInput]);
 
@@ -30,6 +35,7 @@ const Blogs = () => {
         <div className="blog__page">
             <h1 className="blog__page__header">Blogs</h1>
             {loading ? <h1 className="loading">Loading...</h1> : ""}
+            {!!showError ? <h4 style={{color: 'red'}}>{showError}</h4> : ""}
             <div className="blogs">
                 {blogs?.articles?.map((blog) => (
                     <a className="blog" target="_blank" href={blog.url}>
