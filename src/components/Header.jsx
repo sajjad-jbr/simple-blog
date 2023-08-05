@@ -30,7 +30,7 @@ function Header(props) {
     };
 
     return (
-        <div className="navbar">
+        <header className="navbar">
             <h1 className="navbar__header">BlogMania 💬</h1>
             {isSignedIn && (
                 <div className="blog__search">
@@ -71,7 +71,7 @@ function Header(props) {
             ) : (
                 <h1 className="notSignedIn">User not available 😞</h1>
             )}
-        </div>
+        </header>
     );
 }
 
